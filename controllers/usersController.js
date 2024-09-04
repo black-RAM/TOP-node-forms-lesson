@@ -65,3 +65,8 @@ exports.usersUpdateGet = (req, res) => {
 };
 
 exports.usersUpdatePost = [validateUserMiddleware, updateUserPostController]
+
+exports.usersDeletePost = (req, res) => {
+  usersStorage.deleteUser(req.params.id);
+  res.redirect("/");
+};
