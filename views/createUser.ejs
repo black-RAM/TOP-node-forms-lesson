@@ -3,12 +3,17 @@
   <%- include("partials/head") %>
   <body>
     <h1><%= title %></h1>
-    <%- include("partials/errors.ejs") %>
-    <form action="/create" method="POST">
-      <label for="firstName">First Name: </label>
+    <form action="/create" method="POST" style="display: grid">
+      <label for="firstName">First Name:</label>
       <input type="text" name="firstName" id="firstName" required />
-      <label for="lastName">Last Name: </label>
+      <label for="lastName">Last Name:</label>
       <input type="text" name="lastName" id="lastName" required />
+      <label for="email-input">Email:</label>
+      <input type="email" name="email" id="email-input" required />
+      <label for="age-input">Age:</label>
+      <input type="number" name="age" min="0" id="age-input" />
+      <label for="bio-textarea">Bio:</label>
+      <textarea name="bio" id="bio-textarea"></textarea>
       <button type="submit">Submit</button>
     </form>
     <a href="/">Back to home</a>

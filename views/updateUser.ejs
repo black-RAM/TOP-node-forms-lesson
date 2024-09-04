@@ -1,16 +1,36 @@
-<%- include("partials/head") %>
-<body>
-  <h1><%= title %></h1>
-  <%- include("partials/errors.ejs") %>
-  <form action="/<%= user.id %>/update" method="POST">
-    <input
-      type="text"
-      name="firstName"
-      value="<%= user.firstName %>"
-      required
-    />
-    <input type="text" name="lastName" value="<%= user.lastName %>" required />
-    <button type="submit">Update User</button>
-  </form>
-  <a href="/">Back to home</a>
-</body>
+<!DOCTYPE html>
+<html>
+  <%- include("partials/head") %>
+  <body>
+    <h1><%= title %></h1>
+    <%- include("partials/errors.ejs") %>
+    <form action="/<%= user.id %>/update" method="POST" style="display: grid">
+      <input
+        type="text"
+        name="firstName"
+        value="<%= user.firstName %>"
+        required
+      />
+      <input
+        type="text"
+        name="lastName"
+        value="<%= user.lastName %>"
+        required
+      />
+      <label for="email-input">Email:</label>
+      <input
+        type="email"
+        name="email"
+        id="email-input"
+        value="<%= user.email %>"
+        required
+      />
+      <label for="age-input">Age:</label>
+      <input type="number" name="age" id="age-input" min="0" />
+      <label for="bio-text">Bio:</label>
+      <textarea name="bio" id="bio-text"></textarea>
+      <button type="submit">Update User</button>
+    </form>
+    <a href="/">Back to home</a>
+  </body>
+</html>

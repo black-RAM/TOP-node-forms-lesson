@@ -11,6 +11,16 @@ const validateUserMiddleware = [
   body("lastName").trim()
     .isAlpha().withMessage(`Last name ${alphaErr}`)
     .isLength({ min: 1, max: 10 }).withMessage(`Last name ${lengthErr}`),
+  body("email").trim()
+    .isEmail().withMessage("Valid email address required.")
+    .custom(value => usersStorage.emailExists(value)).withMessage("Another user is already using this email."),
+  body("age")
+    .custom(age => Number(age) > 18).withMessage("You must be over the age of 18.")
+    .custom(age => Number(age) < 120).withMessage("We don't think you're over 120 years old.")
+    .optional(),
+  body("bio")
+    .isLength({max: 200}).withMessage("Bio should not exceed 200 characters.")
+    .optional(),
 ];
 
 const newUserPostController = (req, res) => {
@@ -21,8 +31,8 @@ const newUserPostController = (req, res) => {
       errors: errors.array(),
     });
   }
-  const { firstName, lastName } = req.body;
-  usersStorage.addUser({ firstName, lastName });
+  const { firstName, lastName, email, age, bio } = req.body;
+  usersStorage.addUser({ firstName, lastName, email, age, bio });
   res.redirect("/");
 }
 
@@ -36,8 +46,8 @@ const updateUserPostController = (req, res) => {
       errors: errors.array(),
     });
   }
-  const { firstName, lastName } = req.body;
-  usersStorage.updateUser(req.params.id, { firstName, lastName });
+  const { firstName, lastName, email, age, bio } = req.body;
+  usersStorage.updateUser(req.params.id, { firstName, lastName, email, age, bio });
   res.redirect("/");
 }
 
@@ -54,8 +64,6 @@ exports.usersCreateGet = (req, res) => {
   });
 };
 
-exports.usersCreatePost = [validateUserMiddleware, newUserPostController]
-
 exports.usersUpdateGet = (req, res) => {
   const user = usersStorage.getUser(req.params.id);
   res.render("updateUser", {
@@ -63,6 +71,8 @@ exports.usersUpdateGet = (req, res) => {
     user: user,
   });
 };
+
+exports.usersCreatePost = [validateUserMiddleware, newUserPostController]
 
 exports.usersUpdatePost = [validateUserMiddleware, updateUserPostController]
 
