@@ -6,9 +6,9 @@ class UsersStorage {
     this.id = 0;
   }
 
-  addUser({ firstName, lastName, email, bio }) {
+  addUser({ firstName, lastName, email, age, bio }) {
     const id = this.id;
-    this.storage[id] = { id, firstName, lastName, email, bio };
+    this.storage[id] = { id, firstName, lastName, email, age, bio };
     this.id++;
   }
 
@@ -20,16 +20,16 @@ class UsersStorage {
     return this.storage[id];
   }
 
-  updateUser(id, { firstName, lastName, email, bio }) {
-    this.storage[id] = { id, firstName, lastName, email, bio };
+  updateUser(id, { firstName, lastName, email, age, bio }) {
+    this.storage[id] = { id, firstName, lastName, email, age, bio };
   }
 
   deleteUser(id) {
     delete this.storage[id];
   }
 
-  emailExists(email) {
-    return Object.values(this.storage).some(user => user.email == email)
+  emailExists(id, email) {
+    return Object.values(this.storage).some(user => (String(user.id) !== id) && (user.email == email))
   }
 }
 // Rather than exporting the class, we can export an instance of the class by instantiating it.
