@@ -4,6 +4,11 @@
 
   <body>
     <h1><%= title %></h1>
+    <form action="/search" method="get">
+      <label for="search-input">Name:</label>
+      <input type="search" name="search" id="search-input" />
+      <button type="submit">Search</button>
+    </form>
     <ul>
       <% if (locals.users) { users.forEach(user => { %>
       <li>

@@ -31,6 +31,13 @@ class UsersStorage {
   emailExists(id, email) {
     return Object.values(this.storage).some(user => (String(user.id) !== id) && (user.email == email))
   }
+
+  searchUsersByNameFragment(nameFragment) {
+    const nameFragmentRegExp = new RegExp(nameFragment, "gi")
+    return Object.values(this.storage).filter(user => 
+      nameFragmentRegExp.test(String(user.firstName + user.lastName))
+    )
+  }
 }
 // Rather than exporting the class, we can export an instance of the class by instantiating it.
 // This ensures only one instance of this class can exist, also known as the "singleton" pattern.

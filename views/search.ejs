@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <%- include("partials/head") %>
+  <body>
+    <h1>Results for: <%= search %></h1>
+    <ul>
+      <% if(locals.results.length > 0) { %> <% results.forEach(result => { %>
+      <li>
+        <p>ID: <%= result.id %></p>
+        <p>Name: <%= result.firstName %> <%= result.lastName %></p>
+        <p>Email: <%= result.email %></p>
+        <% if(result.age) { %>
+        <p>Age: <%= result.age %></p>
+        <% } %> <% if(result.bio) { %>
+        <p>Bio: <%= result.bio %></p>
+        <% } %>
+      </li>
+      <% }) %> <% } else { %>
+      <li>No results.</li>
+      <% } %>
+    </ul>
+    <a href="/">Back to Home</a>
+  </body>
+</html>

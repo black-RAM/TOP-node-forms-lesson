@@ -1,13 +1,15 @@
 // routes/usersRouter.js
 const { Router } = require("express");
-const usersController = require("../controllers/usersController");
+const { usersListGet, usersCreateGet, usersUpdateGet, usersSearchGet } = require("../controllers/getControllers");
+const { usersCreatePost, usersUpdatePost, usersDeletePost } = require("../controllers/postControllers") 
 const usersRouter = Router();
 
-usersRouter.get("/", usersController.usersListGet);
-usersRouter.get("/create", usersController.usersCreateGet);
-usersRouter.post("/create", usersController.usersCreatePost);
-usersRouter.get("/:id/update", usersController.usersUpdateGet);
-usersRouter.post("/:id/update", usersController.usersUpdatePost);
-usersRouter.post("/:id/delete", usersController.usersDeletePost);
+usersRouter.get("/", usersListGet);
+usersRouter.get("/create", usersCreateGet);
+usersRouter.post("/create", usersCreatePost);
+usersRouter.get("/:id/update", usersUpdateGet);
+usersRouter.post("/:id/update", usersUpdatePost);
+usersRouter.post("/:id/delete", usersDeletePost);
+usersRouter.get("/search", usersSearchGet)
 
 module.exports = usersRouter;
